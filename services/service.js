@@ -15,7 +15,7 @@ const createUser = async (userDto) => {
   const user = {
     firstName,
     lastName,
-    password: CryptoJS.AES.encrypt(password, CONFIG.CRYPTO_SECRET).toString(),
+    password: CryptoJS.AES.encrypt(password, CONFIG.CRYPTO_SECRET || 'test').toString(),
     email: email.toLowerCase(),
     balance,
     createdAt: new Date().toISOString(),
@@ -36,7 +36,7 @@ const isCorrectPassword = async (authData) => {
     throw new CustomError("User not found", 404);
   }
 
-  return { isAuth: CryptoJS.AES.decrypt(user.password, CONFIG.CRYPTO_SECRET).toString(CryptoJS.enc.Utf8) === authData.password, user };
+  return { isAuth: CryptoJS.AES.decrypt(user.password, CONFIG.CRYPTO_SECRET || 'test').toString(CryptoJS.enc.Utf8) === authData.password, user };
 };
 
 

@@ -25,7 +25,7 @@ app.use(
     store: redisStore,
     resave: false, // required: force lightweight session keep alive (touch)
     saveUninitialized: false, // recommended: only save session when data exists
-    secret: CONFIG.SECRET,
+    secret: CONFIG.SECRET || 'sudo',
     name: 'PHPREDIS'
   })
 )
@@ -43,6 +43,6 @@ app.use(async (err, req, res, next) => {
   res.status(statusCode).send(message);
 })
 
-app.listen(CONFIG.PORT, () => {
+app.listen(CONFIG.PORT || 3000, () => {
   console.log(`Server running on: http://localhost:${3000}`);
 });
