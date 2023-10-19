@@ -13,5 +13,16 @@ To run the application via docker, run the command
 
 To make sure that the session ID is saved in Redis, open a connection to the Redis server and run the commands.
 
->docker exec -it auth-with-redis-redis-1 redis-cli
->keys *
+***
+docker exec -it auth-with-redis-redis-1 redis-cli
+keys *
+***
+
+## .ENV example
+
+***
+PORT=3000
+REDIS_DB_URL=redis:6379
+SECRET=awswa
+CRYPTO_SECRET=awsaww
+***
