@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    command: npm run start
+    networks:
+      - custom-net
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - redis
+    restart: always
+    volumes:
+      - ./node_modules:/app/node_modules
+      - .:/app
+
+  redis:
+    build: ./db
+    restart: always
+    networks:
+      - custom-net
+    ports:
+      - "6379:6379"
+      - "8221:8001"
+    volumes:
+      - .db:/data
+    entrypoint: redis-server --appendonly yes --protected-mode no --loadmodule ./opt/redis-stack/lib/redisearch.so --loadmodule ./opt/redis-stack/lib/rejson.so --loadmodule ./opt/redis-stack/lib/redisbloom.so --loadmodule ./opt/redis-stack/lib/redistimeseries.so -e REDISEARCH_ARGS="MAXSEARCHRESULTS 5"
+
+networks:
+  custom-net:
+    driver: bridge
