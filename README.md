@@ -26,3 +26,38 @@ REDIS_DB_URL=redis:6379
 SECRET=awswa
 CRYPTO_SECRET=awsaww
 ```
+
+### Req example
+For create user, use path and json (POST)
+
+```
+http://localhost:3000/auth/signup
+
+{
+    "firstName": "egor",
+    "lastName": "Kor4",
+    "password": "test",
+    "email": "test3@kids.org",
+    "balance": "14"
+}
+
+```
+
+For auth user, use path and json (POST)
+
+```
+http://localhost:3000/auth
+
+{
+    "password": "test",
+    "email": "test3@kids.org"
+}
+
+```
+
+For get user balance, use cookies that come from the method /auth (GET)
+
+```
+http://localhost:3000/balance
+
+```
